@@ -1,0 +1,7 @@
+.pdf-view-restore
+*.aux
+*.pdf
+*.out
+*.toc
+*.log
+auto/*

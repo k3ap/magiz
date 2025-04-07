@@ -1,0 +1,84 @@
+\documentclass{scrbook}
+
+\usepackage{polyglossia}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+
+\setdefaultlanguage{slovene}
+
+\input{mathcommands}
+
+\title{Zapiski za magistrski izpit}
+\author{Patrik Žnidaršič}
+\date{Prevedeno \today}
+
+\theoremstyle{plain}
+\newtheorem{izrek}{Izrek}
+\newtheorem{trditev}[izrek]{Trditev}
+\newtheorem{posledica}[izrek]{Posledica}
+\newtheorem{lema}[izrek]{Lema}
+
+\theoremstyle{definition}
+\newtheorem{definicija}[izrek]{Definicija}
+
+\theoremstyle{remark}
+\newtheorem*{opomba}{Opomba}
+\newtheorem*{primer}{Primer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% VPRAŠANJA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\formatvprasanje}[2]{
+  \noindent
+  \textbf{Vprašanje #1.} #2
+}
+
+\newcounter{vprasanjecounter}
+
+\newcommand{\accvprasanja}{}
+
+\newcommand{\vprasanje}[1]{
+  \refstepcounter{vprasanjecounter}%
+  \vspace{0.1cm}
+  \formatvprasanje{\arabic{vprasanjecounter}}{#1}
+  \vspace{0.1cm}
+  \eappto\accvprasanja{
+	\noexpand\formatvprasanje\thevprasanjecounter{\unexpanded{#1}}
+	\noexpand\par\noexpand\medskip
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PREDMETI, SKLOPI, SNOV
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\sklop}[1]{\newpage\section{#1}}
+\newcommand{\snov}[1]{\subsection{#1}}
+
+\newcommand{\predmet}[2]{
+  \setcounter{vprasanjecounter}{0}
+  \def\imepredmeta{#1}
+  \chapter{#2}
+  \input{#1/all}
+  \newpage
+  {\Huge \centering \textbf{Vprašanja} \\ \vspace{1cm}}
+  \accvprasanja{}
+  \renewcommand{\accvprasanja}{}
+}
+
+\begin{document}
+\errorstopmode
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\predmet{analiza}{Analiza}
+
+\batchmode
+\end{document}

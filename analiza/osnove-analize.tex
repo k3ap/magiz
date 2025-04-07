@@ -1,0 +1,154 @@
+\sklop{Osnove analize}
+
+\snov{Obseg realnih števil, polnost}
+
+Racionalna števila niso poln prostor, saj v njih obstajajo Cauchyjeva zaporedja
+brez limit.
+Primer takšnega zaporedja je recimo
+\begin{align*}
+  a_1 &= 1 \\
+  a_2 &= 1.4 \\
+  a_3 &= 1.41 \\
+  a_4 &= 1.414 \\
+  a_5 &= 1.4142 \\
+  & \ldots
+\end{align*}
+torej racionalni približki korena $2$.
+Zaporedje je Cauchyjevo, torej ima limito $L$ (za katero velja $L^2 = 2$ po
+konstrukciji), vendar $L \notin \Q$:
+Recimo nasprotno, da je $L = m / n$ za $m,n \in \N$ z $\gcd(m,n) = 1$.
+Potem velja $2 = L^2 = m^2 / n^2$, iz česar dobimo $m^2 = 2 n^2$.
+Sklepamo, da mora veljati tudi $m^2 = 4 k^2$ za nek $k \in \N$, saj praštevilski
+delitelj kvadrata deli tudi osnovno število.
+Torej je $n^2 = 2 k^2$, in podobno sklepamo, da $2$ deli $n$.
+To je protislovje s predpostavko $\gcd(m,n) = 1$.
+
+Realna števila lahko definiramo kot napolnitev $\Q$, a jo raje podamo z
+Dedekindovimi rezi, saj je tako lažje pokazati, da je to urejeno polje (tj.~da
+je polje z definirano relacijo $\le$, ki zadošča $a \le b \implies a + c \le b +
+c$ in $0 \le a \land 0 \le b \implies 0 \le a \cdot b$).
+Poleg tega v $\R$ zahtevamo še dodaten aksiom:
+Vsaka neprazna podmnožica $\R$ mora imeti supremum v $\R$.
+
+\begin{definicija}
+  Podmnožica $A \subseteq \Q$ je \pojem{Dedekindov rez}, če velja
+  \begin{itemize}
+  \item $A \ne \varnothing$ in $A \ne \Q$,
+  \item če $p \in A$, $q \in \Q$ ter $q < p$, je tudi $q \in A$,
+  \item za vsak $p \in A$ obstaja $q \in A$, da $q > p$.
+  \end{itemize}
+  Množico vseh rezov imenujemo \pojem{realna števila} in označimo z $\R$.
+\end{definicija}
+
+\noindent
+Med rezi na naraven način definiramo znane operacije:
+\begin{itemize}
+\item $A + B = \{ a + b \such a \in A, b \in B \}$,
+\item $A \le B \iff A \subseteq B$,
+\item za pozitivna $A, B$: $A \cdot B = \{ p \in \Q \such \exists a \in A, b \in
+  B \velja p \le a \cdot b, a > 0, b > 0\}$,
+\item za $A > 0$, $B < 0$: $A \cdot B = -(A \cdot (-B))$,
+\item podobno za $A < 0, B > 0$ ter $A, B < 0$.
+\end{itemize}
+Preverimo lahko (a ne bomo, ker je dolgočasno), da te operacije ustrezajo
+aksiomom urejenega polja.
+
+\begin{trditev}
+  $\R$ ustreza Dedekindovemu aksiomu.
+\end{trditev}
+
+\begin{proof}
+  Naj bo $\mathcal{A} \subseteq \R$ neprazna in navzgor omejena.
+  Definiramo $C = \bigcup \mathcal{A}$.
+  To je očitno tudi rez, pokažimo še, da je supremum množice $\mathcal{A}$.
+  Ker je $A \subseteq C$ za vse $A \in \mathcal{A}$, je $C$ zgornja meja za
+  $\mathcal{A}$.
+  Recimo, da je $D < C$ neko realno število.
+  Potem obstaja $s \in C \setminus D$, in $A \in \mathcal{A}$, da $s \in A$.
+  Potem je $A > D$ in $D$ ni zgornja meja za $\mathcal{A}$.
+\end{proof}
+
+\vprasanje{Definiraj $\R$ z Dedekindovimi rezi in pokaži, da ustreza
+  Dedekindovemu aksiomu.}
+
+\begin{posledica}
+  $\Z$ v $\R$ ni navzgor omejena.
+  Za poljubna pozitivna $a, b \in \R$ obstaja $n \in \N$, da je $na > b$.
+  Slednjemu pravimo \pojem{arhimedska lastnost}.
+\end{posledica}
+
+\begin{proof}
+  Če je $\Z$ navzgor omejena, obstaja natančna zgornja meja $\alpha$.
+  Potem $\alpha-1$ ni zgornja meja, in obstaja $m \in \Z$, da je $m > \alpha -
+  1$, oziroma $m + 1 > \alpha$.
+  \protislovje{}
+
+  Za drugo trditev opazimo, da je $na >b$ natanko tedaj, ko je $n > b/a$.
+  Tak $n$ obstaja, saj $\Z$ ni navzgor omejena (torej tudi $\N \subseteq \Z$
+  ni).
+\end{proof}
+
+\begin{posledica}
+  $\Q$ je gosta v $\R$.
+\end{posledica}
+
+\begin{proof}
+  Topologija v $\R$ je porojena z metriko $d(x,y) = \abs{x-y}$, torej je dovolj
+  pokazati, da za vsaki realni $a < b$ obstaja racionalen $q$, za katerega velja
+  $a < q < b$.
+  Izberimo nek $q' \in b \setminus a$.
+  Po definiciji Dedekindovega reza obstaja $q \in b$, ki je strogo večji od
+  $q'$.
+  Potem je $a < q < b$.
+\end{proof}
+
+\begin{opomba}
+  Če je $a \in \Q$, bi se lahko zgodilo $a = q'$, zato moramo vzeti nek večji
+  element.
+\end{opomba}
+
+\vprasanje{Pokaži, da $\Z$ v $\R$ ni navzgor omejena. Kaj je arhimedska
+  lastnost?}
+
+\begin{izrek}
+  $\R$ je poln prostor.
+\end{izrek}
+
+\begin{proof}
+  Naj bo $(x_n)_n$ Cauchyjevo zaporedje v $\R$.
+  Definiramo
+  \[
+	L = \{ q \in \Q \such \text{$q$ je vsebovan v neskončno mnogo $x_n$} \}.
+  \]
+  To je navzgor omejena množica, ker je zaporedje $(x_n)_n$ navzgor omejeno.
+  Po Dedekindovem aksiomu obstaja supremum $l$.
+  Naj bo $\varepsilon > 0$ in $q \in L$ tak, da je $l - q <
+  \frac{\varepsilon}{2}$.
+  Ker je $q in L$, obstaja podzaporedje $(x_{n_k})_k$ zaporedja $(x_n)_n$, da je
+  $q \in x_{n_k}$ za vse $k$, oziroma $q < x_{n_k}$ za vse $k$.
+
+  Recimo, da obstaja neskončno členov $(x_{n_k})_k$, ki so od $q$ oddaljeni za
+  vsaj $\frac{\varepsilon}{2}$.
+  Naj bo $d = \frac{\varepsilon}{2} - (l - q) > 0$.
+  Obstaja racionalno število $q' \in (l, l+d)$, ki je po konstrukciji vsebovano
+  v vseh členih $(x_{n_k})_k$, ki so od $q$ oddaljeni za vsaj
+  $\frac{\varepsilon}{2}$; teh pa je po predpostavki neskončno, torej je $q' \in
+  L$ in $l < q'$ ne mora biti natančna zgornja meja.
+  \protislovje{}
+
+  Torej je takšnih členov le končno mnogo, in obstaja $K \in \N$, da je $x_{n_k}
+  - q < \frac{\varepsilon}{2}$ za vse $k \ge K$.
+  Tedaj je
+  \[
+	\abs{x_{n_k} - l} \le \abs{x_{n_k} - q} + \abs{q - l}
+	< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}
+	= \varepsilon
+  \]
+  za vse $k \ge K$, torej ima $(x_n)_n$ konvergentno podzaporedje.
+  Ker je Cauchyjevo, je tudi samo konvergentno.
+\end{proof}
+
+\vprasanje{Pokaži: $\R$ je poln prostor.}
+
+% LocalWords:  Dedekindovimi Dedekindov Dedekindovemu Arhimedska Dedekindovega
+% LocalWords:  Dedekindovem Dedekindove arhimedska
