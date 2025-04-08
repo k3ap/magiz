@@ -11,7 +11,21 @@
 
 \input{mathcommands}
 
-\title{Zapiski za magistrski izpit}
+\title{
+  Zapiski za magistrski izpit \\
+  {\scriptsize [
+	\ifdefined\vprasanjavbesedilu
+	  B
+	\else
+	  NB
+	\fi
+	\ifdefined\vprasanjazberi
+	  Z
+	\else
+	  NZ
+	\fi
+	]}
+}
 \author{Patrik Žnidaršič}
 \date{Prevedeno \today}
 
@@ -43,13 +57,17 @@
 
 \newcommand{\vprasanje}[1]{
   \refstepcounter{vprasanjecounter}%
-  \vspace{0.1cm}
-  \formatvprasanje{\arabic{vprasanjecounter}}{#1}
-  \vspace{0.1cm}
-  \eappto\accvprasanja{
-	\noexpand\formatvprasanje\thevprasanjecounter{\unexpanded{#1}}
-	\noexpand\par\noexpand\medskip
-  }
+  \ifdefined\vprasanjavbesedilu
+	\vspace{0.1cm}
+	\formatvprasanje{\arabic{vprasanjecounter}}{#1}
+	\vspace{0.1cm}
+  \fi
+  \ifdefined\vprasanjazberi
+	\eappto\accvprasanja{
+	  \noexpand\formatvprasanje\thevprasanjecounter{\unexpanded{#1}}
+	  \noexpand\par\noexpand\medskip
+	}
+  \fi
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,10 +82,12 @@
   \def\imepredmeta{#1}
   \chapter{#2}
   \input{#1/all}
-  \newpage
-  {\Huge \centering \textbf{Vprašanja} \\ \vspace{1cm}}
-  \accvprasanja{}
-  \renewcommand{\accvprasanja}{}
+  \ifdefined\vprasanjazberi
+	\newpage
+	{\Huge \centering \textbf{Vprašanja} \\ \vspace{1cm}}
+	\accvprasanja{}
+	\renewcommand{\accvprasanja}{}
+  \fi
 }
 
 \begin{document}
