@@ -1,0 +1,136 @@
+\documentclass{scrbook}
+
+\usepackage{polyglossia}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+\usepackage{nicefrac}
+\usepackage{cancel}
+
+\ifdefined\barve
+  \usepackage{xcolor}
+  \renewcommand{\CancelColor}{\color{red}}
+\fi
+
+\setdefaultlanguage{slovene}
+
+\input{mathcommands}
+
+\title{
+  Zapiski za magistrski izpit \\
+  {\scriptsize [
+	\ifdefined\vprasanjavbesedilu
+	  VB
+	\else
+	  \cancel{VB}
+	\fi
+	\ifdefined\vprasanjazberi
+	  VZ
+	\else
+	  \xcancel{VZ}
+	\fi
+	\ifdefined\barve
+	  BR
+	\else
+	  \xcancel{BR}
+	\fi
+	]}
+}
+\author{Patrik Žnidaršič}
+\date{Prevedeno \today}
+
+\theoremstyle{plain}
+\newtheorem{izrek}{Izrek}
+\newtheorem{trditev}[izrek]{Trditev}
+\newtheorem{posledica}[izrek]{Posledica}
+\newtheorem{lema}[izrek]{Lema}
+
+\theoremstyle{definition}
+\newtheorem{definicija}[izrek]{Definicija}
+
+\theoremstyle{remark}
+\newtheorem*{opomba}{Opomba}
+\newtheorem*{primer}{Primer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% VPRAŠANJA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\formatvprasanje}[2]{
+  \noindent
+  \textbf{Vprašanje #1.} #2
+}
+
+\newcounter{vprasanjecounter}
+
+\newcommand{\accvprasanja}{}
+
+\newcommand{\vprasanje}[1]{
+  \refstepcounter{vprasanjecounter}%
+  \ifdefined\vprasanjavbesedilu
+	\vspace{0.1cm}
+	\formatvprasanje{\arabic{vprasanjecounter}}{#1}
+	\vspace{0.1cm}
+  \fi
+  \ifdefined\vprasanjazberi
+	\eappto\accvprasanja{
+	  \noexpand\formatvprasanje\thevprasanjecounter{\unexpanded{#1}}
+	  \noexpand\par\noexpand\medskip
+	}
+  \fi
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PREDMETI, SKLOPI, SNOV
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\setkomafont{subsection}{\itshape}
+
+% https://tex.stackexchange.com/questions/267816/how-to-make-a-rule-under-each-section-title-with-koma-script
+\makeatletter
+\renewcommand{\sectionlinesformat}[4]{%
+  \Ifstr{#1}{subsection}{%
+	\parbox[t]{\linewidth}{%
+	  \raggedsection\@hangfrom{\hskip #2#3}{#4}\par%
+	  \kern-.75\ht\strutbox%
+	  \ifdefined\barve%
+		\textcolor{gray}{\rule{\linewidth}{.8pt}}%
+	  \else%
+		\rule{\linewidth}{.8pt}%
+	  \fi
+	}%
+  }{%
+	\@hangfrom{\hskip #2#3}{#4}}% 
+}
+\makeatother
+
+\newcommand{\sklop}[1]{\newpage\section{#1}}
+\newcommand{\snov}[1]{\subsection{#1}}
+
+\newcommand{\predmet}[2]{
+  \setcounter{vprasanjecounter}{0}
+  \def\imepredmeta{#1}
+  \chapter{#2}
+  \input{#1/all}
+  \ifdefined\vprasanjazberi
+	\newpage
+	{\Huge \centering \textbf{Vprašanja} \\ \vspace{1cm}}
+	\accvprasanja{}
+	\renewcommand{\accvprasanja}{}
+  \fi
+}
+
+\begin{document}
+\errorstopmode
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\predmet{analiza}{Analiza}
+
+\batchmode
+\end{document}
