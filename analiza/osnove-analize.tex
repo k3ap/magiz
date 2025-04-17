@@ -124,7 +124,7 @@ aksiomom urejenega polja.
   Po Dedekindovem aksiomu obstaja supremum $l$.
   Naj bo $\varepsilon > 0$ in $q \in L$ tak, da je $l - q <
   \frac{\varepsilon}{2}$.
-  Ker je $q in L$, obstaja podzaporedje $(x_{n_k})_k$ zaporedja $(x_n)_n$, da je
+  Ker je $q \in L$, obstaja podzaporedje $(x_{n_k})_k$ zaporedja $(x_n)_n$, da je
   $q \in x_{n_k}$ za vse $k$, oziroma $q < x_{n_k}$ za vse $k$.
 
   Recimo, da obstaja neskončno členov $(x_{n_k})_k$, ki so od $q$ oddaljeni za
@@ -150,5 +150,171 @@ aksiomom urejenega polja.
 
 \vprasanje{Pokaži: $\R$ je poln prostor.}
 
+\snov{Številska zaporedja}
+
+Zaporedje realnih števil je preslikava $a: \N \to \R$.
+Namesto $a(n)$ pogosto pišemo $a_n$, za celotno zaporedje pa $(a_n)_n$.
+Pravimo, da zaporedje \pojem{konvergira} proti številu $L \in \R$, če za vsak
+$\varepsilon > 0$ obstaja $n_0 \in \N$, da za vse $n \ge n_0$ velja $\abs{a_n -
+  L} < \varepsilon$.
+Številu $L$ pravimo \pojem{limita} zaporedja $(a_n)_n$ in pišemo
+\[
+  L = \lim_{n \to \infty} a_n.
+\]
+
+\begin{trditev}
+  Konvergentno zaporedje ima natanko eno limito.
+\end{trditev}
+
+\begin{proof}
+  Naj bosta $L_1 \ne L_2$ limiti zaporedja $(a_n)_n$.
+  Brez škode za splošnost lahko predpostavimo $L_1 > L_2$.
+  Označimo $d = L_1 - L_2$.
+  Potem za $\varepsilon = \nicefrac{d}{3}$ obstaja $n_0$, da so vsi členi
+  zaporedja od $n_0$-tega dalje v $\varepsilon$-okolici obeh $L_1, L_2$, kar je
+  protislovno, saj imata ti okolici prazen presek.
+\end{proof}
+
+\begin{trditev}
+  \label{trditev:konvergentno-implicira-omejeno}
+  Vsako konvergentno zaporedje je omejeno.
+\end{trditev}
+
+\begin{proof}
+  Le končno mnogo členov je zunaj $1$-okolice limite.
+\end{proof}
+
+\begin{primer}
+  Obrat ne velja; $a_n = (-1)^n$ je omejeno, a ni konvergentno.
+\end{primer}
+
+\begin{definicija}
+  Število $s \in \R$ je \pojem{stekališče} zaporedja $(a_n)_n$, če v vsaki
+  $\varepsilon$-okolici $s$ leži neskončno mnogo členov zaporedja.
+\end{definicija}
+
+Če je zaporedje konvergentno, je limita njegovo edino stekališče.
+Obratno ne velja; zaporedje
+\[
+  a_{2n} = 1 \qquad a_{2n+1} = n
+\]
+ima natanko eno stekališče ($1$), a ni konvergentno.
+
+\begin{izrek}
+  Vsako omejeno zaporedje ima stekališče.
+\end{izrek}
+
+\begin{proof}
+  Naj bo
+  \[
+	U = \{ u \in \R \such \text{$a_n < u$ za kvečjemu končno mnogo $n \in \N$}
+	\}.
+  \]
+  Ta množica je očitno omejena in neprazna, saj je $(a_n)_n$ omejeno.
+  Torej obstaja $a = \sup U$.
+  Za poljuben $\varepsilon > 0$ je $a_n < a + \varepsilon$ za neskončno mnogo $n
+  \in \N$, saj bi bil sicer $a + \varepsilon \in U$.
+  Ker pa je $a$ natančna zgornja meja, obstaja $u \in U$, ki je večji od $a -
+  \varepsilon$, torej je $a_n < u$ le za končno indeksov $n$ in je na intervalu
+  $(u, a + \varepsilon) \subseteq (a-\varepsilon, a+\varepsilon)$ neskončno
+  mnogo členov zaporedja.
+\end{proof}
+
+\begin{definicija}
+  Zaporedje je \pojem{naraščajoče}, če velja $a_n \le a_{n+1}$ za vse $n \in
+  \N$.
+  Je \pojem{strogo naraščajoče}, če velja $a_n < a_{n+1}$ za vse $n \in \N$.
+  Analogno definiramo (strogo) padajoča zaporedja.
+\end{definicija}
+
+\begin{izrek}
+  Naj bo $(a_n)_n$ monotono zaporedje (naraščajoče ali padajoče).
+  Potem je $(a_n)_n$ konvergentno natanko tedaj, ko je omejeno.
+\end{izrek}
+
+\begin{proof}
+  Implikacija v desno je natanko
+  trditev~\ref{trditev:konvergentno-implicira-omejeno}.
+  V levo:
+  Brez škode za splošnost predpostavimo, da je $(a_n)_n$ naraščajoče in navzgor
+  omejeno.
+  Potem obstaja $a = \sup a_n$.
+  Naj bo $\varepsilon > 0$.
+  Potem po definiciji supremuma obstaja $n \in \N$, da je $a_n \in \oz{a -
+	\varepsilon, a}$; ker pa je zaporedje naraščajoče, to velja tudi za vse
+  kasnejše člene.
+\end{proof}
+
+\begin{definicija}
+  Naj bo $(a_n)_n$ zaporedje realnih števil in $(n_k)_k$ strogo naraščajoče
+  zaporedje naravnih števil.
+  Zaporedju $(a_{n_k})_k$ pravimo \pojem{podzaporedje} zaporedja $(a_n)_n$.
+\end{definicija}
+
+\begin{trditev}
+  Če $(a_n)_n$ konvergira k $L \in \R$, tja konvergira tudi poljubno
+  podzaporedje $(a_n)_n$.
+\end{trditev}
+
+\begin{proof}
+  Naj bo $\varepsilon > 0$ in $n_0$ tak, da za vse $n \ge n_0$ velja $\abs{a_n -
+	L} < \varepsilon$.
+  Naj bo $k_0 \in \N$ tak, da je $n_{k_0} \ge n_0$.
+  Potem za vsak $k \ge k_0$ velja $\abs{a_{n_k} - L} < \varepsilon$.
+\end{proof}
+
+\begin{izrek}
+  Število $s \in \R$ je stekališče zaporedja $(a_n)_n$ natanko tedaj, ko obstaja
+  podzaporedje, ki konvergira k $s$.
+\end{izrek}
+
+\begin{proof}
+  Implikacija v levo je očitna.
+  V desno:
+  Induktivno konstruirajmo podzaporedje $(a_{n_k})_k$, da bo za vse $k \in \N$
+  veljalo $\abs{a_{n_k} - s} < 2^{-k}$.
+  Za prvi člen vzemimo poljuben člen zaporedja, ki je od $s$ oddaljen za največ
+  $\pol$.
+  Recimo, da smo že izbrali $k-1$ členov.
+  Ker je $s$ stekališče $(a_n)_n$, obstaja neskončno členov v $2^{-k}$-okolici
+  $s$, torej obstaja tudi člen z indeksom, večjim od $n_{k-1}$.
+  Ta člen izberemo za $a_{n_k}$.
+  Po konstrukciji $(a_{n_k})_k$ konvergira k $s$.
+\end{proof}
+
+\begin{lema}
+  \label{lema:primerjava-zaporedij}
+  Če sta $(a_n)_n$ in $(b_n)_n$ konvergentni zaporedji, za kateri velja $a_n \le
+  b_n$ za vse $n \in \N$, potem je $\lim a_n \le \lim b_n$.
+\end{lema}
+
+\begin{proof}
+  Recimo nasprotno, da je $b := \lim b_n < a := \lim a_n$.
+  Naj bo $\varepsilon = \inv{3} (a - b)$.
+  Potem je zunaj $\varepsilon$-okolice $b$ le končno mnogo členov zaporedja
+  $(b_n)_n$, in podobno zunaj $\varepsilon$-okolice $a$ le končno mnogo členov
+  $(a_n)_n$.
+  Potem za neskončno mnogo indeksov $n$ velja $b_n < a_n$, saj sta okolici
+  disjunktni.
+  To pa je protislovje s predpostavko.
+\end{proof}
+
+\begin{izrek}[Izrek o sendviču]
+  Naj za zaporedja $(a_n)_n$, $(b_n)_n$ in $(c_n)_n$ velja $a_n \le b_n \le c_n$
+  za vse $n \in \N$.
+  Če sta $(a_n)_n$ in $(c_n)_n$ konvergentni ter je $\lim a_n = \lim c_n$, potem
+  je tudi $(b_n)_n$ konvergentno z isto limito.
+\end{izrek}
+
+\begin{proof}
+  Zaradi leme~\ref{lema:primerjava-zaporedij} je dovolj pokazati, da je
+  $(b_n)_n$ konvergentno.
+  Naj bo $\varepsilon > 0$.
+  Označimo $L = \lim a_n = \lim c_n$.
+  Obstaja $n_0 \in \N$, da za vse $n \ge n_0$ velja $a_n, c_n \in
+  (L-\varepsilon,L+\varepsilon)$; ker pa je $a_n \le b_n \le c_n$, je tudi $b_n
+  \in (L-\varepsilon, L+\varepsilon)$.
+\end{proof}
+
 % LocalWords:  Dedekindovimi Dedekindov Dedekindovemu Arhimedska Dedekindovega
-% LocalWords:  Dedekindovem Dedekindove arhimedska
+% LocalWords:  Dedekindovem Dedekindove arhimedska supremuma
