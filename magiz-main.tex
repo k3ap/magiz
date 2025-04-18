@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \usepackage{nicefrac}
 \usepackage{cancel}
+\usepackage{tcolorbox}
 
 \ifdefined\barve
   \usepackage{xcolor}
@@ -15,6 +16,8 @@
 \fi
 
 \setdefaultlanguage{slovene}
+
+\tcbuselibrary{breakable,skins,xparse}
 
 \input{mathcommands}
 
@@ -54,13 +57,21 @@
 \newtheorem*{opomba}{Opomba}
 \newtheorem*{primer}{Primer}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% VPRAŠANJA
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\ifdefined\barve
+  \newcommand{\barvaframe}{black!50!orange}
+  \newcommand{\barvaback}{white!95!orange}
+\else
+  \newcommand{\barvaframe}{black}
+  \newcommand{\barvaback}{white}
+\fi
 
 \newcommand{\formatvprasanje}[2]{
   \noindent
-  \textbf{Vprašanje #1.} #2
+  \textbf{Vprašanje #1.}\ #2
 }
 
 \newcounter{vprasanjecounter}
@@ -70,9 +81,26 @@
 \newcommand{\vprasanje}[1]{
   \refstepcounter{vprasanjecounter}%
   \ifdefined\vprasanjavbesedilu
-	\vspace{0.1cm}
-	\formatvprasanje{\arabic{vprasanjecounter}}{#1}
-	\vspace{0.1cm}
+	\tcbsidebyside%
+	[
+	width=0.95\textwidth,
+	halign=justify,
+	center,
+	breakable,
+	colupper=white,
+	colback=\barvaframe,
+	colbacklower=\barvaback,
+	colframe=\barvaframe,
+	sidebyside adapt=left,
+	sidebyside gap=3mm,
+	bicolor,
+	left=1mm
+	]%
+	{
+	  \textbf{\roman{vprasanjecounter}.}
+	}{
+	  #1
+	}
   \fi
   \ifdefined\vprasanjazberi
 	\eappto\accvprasanja{
